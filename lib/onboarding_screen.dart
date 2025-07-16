@@ -22,25 +22,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         children: [
           PageView(
             controller: _controller,
-            children: [
-             IntroPage1(),
-             IntroPage2(),
-             IntroPage3(),
-            ],
+            children: [IntroPage1(), IntroPage2(), IntroPage3()],
           ),
 
           Container(
             alignment: Alignment(0, 0.8),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // skip
-
+                GestureDetector(
+                  onTap: () {
+                    _controller.nextPage(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeIn,
+                    );
+                  },
+                  child: Text('skip'),
+                ),
                 // dot indicator
                 SmoothPageIndicator(controller: _controller, count: 3),
 
                 // next or done
+                GestureDetector(child: Text('next')),
               ],
-            )),
+            ),
+          ),
         ],
       ),
     );
