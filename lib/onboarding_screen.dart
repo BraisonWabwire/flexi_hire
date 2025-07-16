@@ -1,3 +1,6 @@
+import 'package:flexi_hire/intro_screens/intro_page1.dart';
+import 'package:flexi_hire/intro_screens/intro_page2.dart';
+import 'package:flexi_hire/intro_screens/intro_page3.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -20,15 +23,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           PageView(
             controller: _controller,
             children: [
-              Container(color: Colors.blue),
-              Container(color: Colors.yellow),
-              Container(color: Colors.green),
+             IntroPage1(),
+             IntroPage2(),
+             IntroPage3(),
             ],
           ),
 
           Container(
             alignment: Alignment(0, 0.8),
-            child: SmoothPageIndicator(controller: _controller, count: 3)),
+            child: Row(
+              children: [
+                // skip
+
+                // dot indicator
+                SmoothPageIndicator(controller: _controller, count: 3),
+
+                // next or done
+              ],
+            )),
         ],
       ),
     );
