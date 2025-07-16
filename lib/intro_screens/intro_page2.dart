@@ -9,35 +9,76 @@ class IntroPage2 extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Scaffold(
-        appBar: AppBar(title: Text('Flexi Hire', style: GoogleFonts.roboto(
-          fontSize: 25,
-          wordSpacing:1.2,
-          color: Colors.deepPurple,
-          fontWeight: FontWeight.bold
-        ),),),
-        body: DecoratedBox(
-          decoration:BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          )
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: Text(
+            '',
+            style: GoogleFonts.roboto(
+              fontSize: 25,
+              wordSpacing: 1.2,
+              color: Colors.deepPurple,
+              fontWeight: FontWeight.bold,
             ),
-          child: Column(
-            children: [
-              Text(
-                  "Find your preffered job with just a click",
-                  style:  GoogleFonts.montserrat(
-                    fontSize: 30,
-                    letterSpacing: 1.1,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-            ],
           ),
-        )
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft:Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(40),
+                    child: Text(
+                      "Find your preffered job with just a click",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Image.asset('assets/images/searching.png'),
+            DecoratedBox(
+              decoration:BoxDecoration(
+                // color: Colors.deepPurpleAccent
+              ), 
+              child: Padding(
+                padding: const EdgeInsets.all(40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.card_membership,
+                      size: 60,
+                      color: Colors.deepPurpleAccent,
+                    ),
+                     Text(
+                      "Get verified today",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              )
+          ],
+        ),
       ),
     );
   }
