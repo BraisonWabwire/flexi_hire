@@ -12,9 +12,9 @@ class IntroPage2 extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
-            '',
-            style: GoogleFonts.roboto(
-              fontSize: 25,
+            'Search for job',
+            style: GoogleFonts.montserrat(
+              fontSize: 20,
               wordSpacing: 1.2,
               color: Colors.deepPurple,
               fontWeight: FontWeight.bold,
@@ -24,6 +24,7 @@ class IntroPage2 extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 40,),
             DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -39,7 +40,7 @@ class IntroPage2 extends StatelessWidget {
                     child: Text(
                       "Find your preffered job with just a click",
                       style: GoogleFonts.montserrat(
-                        fontSize: 30,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.deepPurpleAccent,
                       ),
@@ -67,7 +68,7 @@ class IntroPage2 extends StatelessWidget {
                      Text(
                       "Get verified today",
                       style: GoogleFonts.montserrat(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.deepPurpleAccent,
                       ),

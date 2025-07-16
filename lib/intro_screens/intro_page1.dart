@@ -8,7 +8,7 @@ class IntroPage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Flexi Hire', style: GoogleFonts.roboto(
-        fontSize: 25,
+        fontSize: 30,
         wordSpacing:1.2,
         color: Colors.deepPurple,
         fontWeight: FontWeight.bold
@@ -29,7 +29,7 @@ class IntroPage1 extends StatelessWidget {
               child: Text(
                 "Flexi Hire, Kenya's top job finder platform",
                 style:  GoogleFonts.montserrat(
-                  fontSize: 30,
+                  fontSize: 20,
                   letterSpacing: 1.1,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
