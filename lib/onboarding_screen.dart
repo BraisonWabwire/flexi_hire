@@ -33,10 +33,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 // skip
                 GestureDetector(
                   onTap: () {
-                    _controller.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeIn,
-                    );
+                    _controller.jumpToPage(2);
+                    
                   },
                   child: Text('skip'),
                 ),
@@ -44,7 +42,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SmoothPageIndicator(controller: _controller, count: 3),
 
                 // next or done
-                GestureDetector(child: Text('next')),
+                GestureDetector(
+                  onTap: () {
+                    _controller.nextPage(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeIn,
+                    );
+                  },
+                  child: Text('next'),
+                ),
               ],
             ),
           ),
