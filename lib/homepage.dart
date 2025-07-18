@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 50),
+        padding: const EdgeInsets.only(top: 40),
         child: Center(
           child: Column(
             children: [
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                           return null;
                         },
                       ),
-                      // SizedBox(height: 20),
+                      SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
