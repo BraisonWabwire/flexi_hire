@@ -14,6 +14,8 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool _obsecureText = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,56 +30,82 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            Image.asset('assets/images/lock.png', width: 200, height: 200),
-            Padding(
-              padding: const EdgeInsets.only(left: 40, right: 40),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Email'),
-                      controller: _nameController,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email cannot be empty';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: InputDecoration(labelText: 'password'),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'please enter password';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          print('form is valid');
-                        }
-                      },
-                      child: Text(
-                        'Submit',
-                        style: GoogleFonts.montserrat(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 50),
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset('assets/images/lock.png', width: 150, height: 150),
+              Padding(
+                padding: const EdgeInsets.only(left: 40, right: 40),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      TextFormField(
+                        decoration: InputDecoration(labelText: 'Email'),
+                        controller: _nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email cannot be empty';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obsecureText,
+                        decoration: InputDecoration(
+                          labelText: 'password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obsecureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obsecureText = !_obsecureText;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'please enter password';
+                          }
+                          return null;
+                        },
+                      ),
+                      // SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            print('form is valid');
+                          }
+                        },
+                        child: Text(
+                          'Login',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              // SizedBox(height: 5,),
+              TextButton(onPressed: () {}, child: Text('Forgot password')),
+              // SizedBox(height: 5,),
+              TextButton(
+                onPressed: () {},
+                child: Text("Don't have an account sinup"),
+              ),
+            ],
+          ),
         ),
       ),
     );
