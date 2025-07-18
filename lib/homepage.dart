@@ -13,7 +13,22 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      // body: Padding(
+      //   padding: const EdgeInsets.all(8.0),
+      //   child: Row(
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {
+      //         // Do something
+      //         },
+      //         child: Icon(Icons.arrow_back),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+
+      body: Container(
       color: Colors.white,
       child: Scaffold(appBar: AppBar(title: Text(
                   "Welcome",
@@ -25,6 +40,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 textAlign: TextAlign.center,
               ),)),
+    ),
     );
   }
 }
+
+
