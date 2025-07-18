@@ -11,25 +11,23 @@
 - Flutter-based mobile UI/UX for smooth user experience.
 - Support for image and UI previews.
 
-~~~
 
-## 📷 Project Screenshots
+## Project Screenshots
 
 | Slide 1 | Slide 2 |
 |--------|--------|
-| ![Slide 1](projectImages/1.jpg) | ![Slide 2](projectImages/2.jpg) |
+| ![Slide 1](ProjectImages/1.jpg) | ![Slide 2](ProjectImages/2.jpg) |
 
 | Slide 3 | Slide 4 |
 |--------|--------|
-| ![Slide 3](projectImages/3.jpg) | ![Slide 4](projectImages/4.jpg) |
+| ![Slide 3](ProjectImages/3.jpg) | ![Slide 4](ProjectImages/4.jpg) |
 
 | Login Page |
 |------------|
-| ![Login](projectImages/5.jpg) |
+| ![Login](ProjectImages/5.jpg) |
 
-~~~
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
