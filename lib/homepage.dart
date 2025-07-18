@@ -10,39 +10,66 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   // final PageController _controller = PageController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: Row(
-      //     children: [
-      //       GestureDetector(
-      //         onTap: () {
-      //         // Do something
-      //         },
-      //         child: Icon(Icons.arrow_back),
-      //       ),
-      //     ],
-      //   ),
-      // ),
-
-      body: Container(
-      color: Colors.white,
-      child: Scaffold(appBar: AppBar(title: Text(
-                  "Welcome",
-                  style:  GoogleFonts.montserrat(
-                  fontSize: 20,
-                  letterSpacing: 1.1,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
-              ),)),
-    ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          "Login or signUp",
+          style: GoogleFonts.montserrat(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurpleAccent,
+          ),
+        ),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset('assets/images/lock.png', width: 200, height: 200),
+            Padding(
+              padding: const EdgeInsets.only(left: 40, right: 40),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Email'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email cannot be empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'password'),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'please enter password';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20,),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        print('form is valid');
+                      }
+                    },
+                    child: Text('Submit', style: GoogleFonts.montserrat(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
-
-

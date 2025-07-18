@@ -63,6 +63,7 @@ flutter:
     - assets/images/searching.png
     - assets/images/page3.png
     - assets/images/page32.png
+    - assets/images/lock.png
 
 
   #   - images/a_dot_ham.jpeg
