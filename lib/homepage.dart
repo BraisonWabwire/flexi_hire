@@ -1,3 +1,4 @@
+import 'package:flexi_hire/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Login or signUp",
@@ -101,7 +102,12 @@ class _HomePageState extends State<HomePage> {
               TextButton(onPressed: () {}, child: Text('Forgot password')),
               // SizedBox(height: 5,),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignupPage()),
+                  );
+                },
                 child: Text("Don't have an account sinup"),
               ),
             ],

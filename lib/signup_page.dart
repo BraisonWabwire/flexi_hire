@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
         child: Center(
           child: Column(
             children: [
-              Image.asset('assets/images/lock.png', width: 150, height: 150),
+              // Image.asset('assets/images/lock.png', width: 150, height: 150),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: Form(
