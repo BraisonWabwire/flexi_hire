@@ -1,16 +1,44 @@
-# flexi_hire
+# Flexi_Hire
 
-A new Flutter project.
+**Flexi_Hire** is a Flutter-based mobile application designed to connect job seekers with clients by posting job opportunities in real-time. The app aims to simplify the job hunting process and provide employers with a reliable platform to post and manage job listings.
+
+---
+
+## 🚀 Features
+
+- Beautiful onboarding slides to welcome and guide users.
+- Secure login page for user authentication.
+- Flutter-based mobile UI/UX for smooth user experience.
+- Support for image and UI previews.
+
+
+## Project Screenshots
+
+| Slide 1 | Slide 2 |
+|--------|--------|
+| ![Slide 1](ProjectImages/1.jpg) | ![Slide 2](ProjectImages/2.jpg) |
+
+| Slide 3 | Slide 4 |
+|--------|--------|
+| ![Slide 3](ProjectImages/3.jpg) | ![Slide 4](ProjectImages/4.jpg) |
+
+| Login Page |
+|------------|
+| ![Login](ProjectImages/5.jpg) |
+
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- Flutter SDK (v3.x or later)
+- Android Studio or VS Code
+- Dart plugin
+- An Android/iOS emulator or physical device
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/BraisonWabwire/flexi_hire.git
+   cd flexi_hire
