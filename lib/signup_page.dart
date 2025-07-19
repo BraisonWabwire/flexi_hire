@@ -77,6 +77,32 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       SizedBox(height: 20),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: _obsecureText,
+                        decoration: InputDecoration(
+                          labelText: 'password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obsecureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obsecureText = !_obsecureText;
+                              });
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'please enter password';
+                          }
+                          return null;
+                        },
+                      ),
+                      SizedBox(height: 20,),
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
@@ -84,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                           }
                         },
                         child: Text(
-                          'Login',
+                          'Signup',
                           style: GoogleFonts.montserrat(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
