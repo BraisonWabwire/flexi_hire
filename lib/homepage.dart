@@ -45,7 +45,10 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       TextFormField(
-                        decoration: InputDecoration(labelText: 'Email'),
+                        decoration: InputDecoration(labelText: 'Email',helperText: 'example@gmail.com'),
+                        style: TextStyle(
+                          color: Colors.deepPurpleAccent,
+                        ),
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -71,6 +74,9 @@ class _HomePageState extends State<HomePage> {
                               });
                             },
                           ),
+                        ),
+                        style: TextStyle(
+                          color: Colors.deepPurpleAccent,
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -101,14 +107,14 @@ class _HomePageState extends State<HomePage> {
               // SizedBox(height: 5,),
               TextButton(onPressed: () {}, child: Text('Forgot password')),
               // SizedBox(height: 5,),
-              TextButton(
+              OutlinedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => SignupPage()),
                   );
                 },
-                child: Text("Don't have an account sinup"),
+                child: Text("Create account"),
               ),
             ],
           ),

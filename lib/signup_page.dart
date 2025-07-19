@@ -20,7 +20,7 @@ class _SignupPageState extends State<SignupPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Login or signUp",
+          "signUp",
           style: GoogleFonts.montserrat(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -42,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       TextFormField(
-                        decoration: InputDecoration(labelText: 'Email'),
+                        decoration: InputDecoration(labelText: 'Email',helperText: 'example@gmail.com'),
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
