@@ -29,11 +29,11 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 40),
+        padding: const EdgeInsets.only(top: 30),
         child: Center(
           child: Column(
             children: [
-              // Image.asset('assets/images/lock.png', width: 150, height: 150),
+              Image.asset('assets/images/signup.png', width: 200, height: 150),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: Form(
@@ -76,7 +76,6 @@ class _SignupPageState extends State<SignupPage> {
                           return null;
                         },
                       ),
-                      SizedBox(height: 20),
                       TextFormField(
                         controller: _passwordController,
                         obscureText: _obsecureText,
@@ -97,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'please enter password';
+                            return 'Confirm password';
                           }
                           return null;
                         },

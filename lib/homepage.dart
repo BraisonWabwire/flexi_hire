@@ -20,10 +20,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          "Login or signUp",
+          "Login to your account",
           style: GoogleFonts.montserrat(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Column(
             children: [
-              Image.asset('assets/images/lock.png', width: 150, height: 150),
+              Image.asset('assets/images/login.png', width: 150, height: 150),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: Form(
