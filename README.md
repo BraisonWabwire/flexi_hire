@@ -22,9 +22,9 @@
 |--------|--------|
 | ![Slide 3](ProjectImages/3.jpg) | ![Slide 4](ProjectImages/4.jpg) |
 
-| Login Page |
-|------------|
-| ![Login](ProjectImages/5.jpg) |
+| Login Page | Signup |
+|------------|------------|
+| ![Login](ProjectImages/5.jpg) |![signup](ProjectImages/7.jpg) |
 
 
 ## Getting Started
