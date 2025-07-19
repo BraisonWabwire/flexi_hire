@@ -45,10 +45,11 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       TextFormField(
-                        decoration: InputDecoration(labelText: 'Email',helperText: 'example@gmail.com'),
-                        style: TextStyle(
-                          color: Colors.deepPurpleAccent,
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          helperText: 'example@gmail.com',
                         ),
+                        style: TextStyle(color: Colors.deepPurpleAccent),
                         controller: _nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -75,9 +76,7 @@ class _HomePageState extends State<HomePage> {
                             },
                           ),
                         ),
-                        style: TextStyle(
-                          color: Colors.deepPurpleAccent,
-                        ),
+                        style: TextStyle(color: Colors.deepPurpleAccent),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'please enter password';
