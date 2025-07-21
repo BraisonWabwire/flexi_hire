@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "856786066195",
+    "firebase_url": "https://flexi-hire-default-rtdb.firebaseio.com",
+    "project_id": "flexi-hire",
+    "storage_bucket": "flexi-hire.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856786066195:android:b0d10a8747e5ab17f6d8e6",
+        "android_client_info": {
+          "package_name": "com.example.flexi_hire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzrgZqsVE8l3OvmgfOAq0RWe24kwTgfVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
