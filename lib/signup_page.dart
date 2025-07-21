@@ -12,7 +12,8 @@ class _SignupPageState extends State<SignupPage> {
   bool _obsecureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController1 = TextEditingController();
+  final TextEditingController _passwordController2 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +53,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
-                        controller: _passwordController,
+                        controller: _passwordController1,
                         obscureText: _obsecureText,
                         decoration: InputDecoration(
                           labelText: 'password',
@@ -77,7 +78,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
-                        controller: _passwordController,
+                        controller: _passwordController2,
                         obscureText: _obsecureText,
                         decoration: InputDecoration(
                           labelText: 'password',

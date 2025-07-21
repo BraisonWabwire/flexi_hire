@@ -1,3 +1,4 @@
+import 'package:flexi_hire/authentication.dart';
 import 'package:flexi_hire/signup_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +13,35 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // final PageController _controller = PageController();
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final AuthService _authService = AuthService();
+  bool _isLoading = false;
+  String? _errorMessage;
 
   bool _obsecureText = true;
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+    try {
+      await _authService.signIn(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+      // Navigation happens automatically via StreamBuilder in main.dart
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Login failed: ${e.toString()}';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                           helperText: 'example@gmail.com',
                         ),
                         style: TextStyle(color: Colors.deepPurpleAccent),
-                        controller: _nameController,
+                        controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Email cannot be empty';
