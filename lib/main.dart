@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flexi_hire/homepage.dart';
 // import 'package:flexi_hire/intro_screens/intro_page1.dart';
 import 'package:flexi_hire/onboarding_screen.dart';
+import 'package:flexi_hire/user_homepage.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return HomePage();
+            return UserHomepage();
           } else {
             return OnboardingScreen();
           }

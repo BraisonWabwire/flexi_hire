@@ -57,91 +57,107 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Center(
-          child: Column(
-            children: [
-              Image.asset('assets/images/login.png', width: 150, height: 150),
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          helperText: 'example@gmail.com',
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 40),
+          child: Center(
+            child: Column(
+              children: [
+                Image.asset('assets/images/login.png', width: 150, height: 150),
+                Padding(
+                  padding: const EdgeInsets.only(left: 40, right: 40),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            helperText: 'example@gmail.com',
+                          ),
+                          style: TextStyle(color: Colors.deepPurpleAccent),
+                          controller: _emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Email cannot be empty';
+                            }
+                            final emailRegex = RegExp(
+                              r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$',
+                            );
+                            if (!emailRegex.hasMatch(value)) {
+                              return 'Enter a valid email';
+                            }
+                            return null;
+                          },
                         ),
-                        style: TextStyle(color: Colors.deepPurpleAccent),
-                        controller: _emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email cannot be empty';
-                          }
-                          return null;
-                        },
-                      ),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obsecureText,
-                        decoration: InputDecoration(
-                          labelText: 'password',
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obsecureText
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
+                        TextFormField(
+                          controller: _passwordController,
+                          obscureText: _obsecureText,
+                          decoration: InputDecoration(
+                            labelText: 'password',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obsecureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obsecureText = !_obsecureText;
+                                });
+                              },
                             ),
-                            onPressed: () {
-                              setState(() {
-                                _obsecureText = !_obsecureText;
-                              });
-                            },
                           ),
+                          style: TextStyle(color: Colors.deepPurpleAccent),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'please enter password';
+                            }
+                            return null;
+                          },
                         ),
-                        style: TextStyle(color: Colors.deepPurpleAccent),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'please enter password';
-                          }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print('form is valid');
-                          }
-                        },
-                        child: Text(
-                          'Login',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        SizedBox(height: 20),
+                        if (_errorMessage != null)
+                          Text(
+                            _errorMessage!,
+                            style: TextStyle(color: Colors.red),
                           ),
-                        ),
-                      ),
-                    ],
+                        _isLoading
+                            ? CircularProgressIndicator()
+                            : ElevatedButton(
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _login();
+                                  }
+                                },
+                                child: Text(
+                                  'Login',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              // SizedBox(height: 5,),
-              TextButton(onPressed: () {}, child: Text('Forgot password')),
-              // SizedBox(height: 5,),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupPage()),
-                  );
-                },
-                child: Text("Create account"),
-              ),
-            ],
+                // SizedBox(height: 5,),
+                TextButton(onPressed: () {}, child: Text('Forgot password')),
+                // SizedBox(height: 5,),
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignupPage()),
+                    );
+                  },
+                  child: Text("Create account"),
+                ),
+              ],
+            ),
           ),
         ),
       ),
