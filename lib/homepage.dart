@@ -1,5 +1,6 @@
 import 'package:flexi_hire/authentication.dart';
 import 'package:flexi_hire/signup_page.dart';
+import 'package:flexi_hire/user_homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -27,10 +28,20 @@ class _HomePageState extends State<HomePage> {
       _errorMessage = null;
     });
     try {
-      await _authService.signIn(
+      final user = await _authService.signIn(
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
+      if (user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const UserHomepage()),
+        );
+      } else {
+        setState(() {
+          _errorMessage = 'Login failed: user does not exist';
+        });
+      }
       // Navigation happens automatically via StreamBuilder in main.dart
     } catch (e) {
       setState(() {
@@ -75,7 +86,6 @@ class _HomePageState extends State<HomePage> {
                         TextFormField(
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            helperText: 'example@gmail.com',
                           ),
                           style: TextStyle(color: Colors.deepPurpleAccent),
                           controller: _emailController,

@@ -1,3 +1,4 @@
+import 'package:flexi_hire/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,9 +12,44 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   bool _obsecureText = true;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _passwordController1 = TextEditingController();
-  final TextEditingController _passwordController2 = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+  final AuthService _authService = AuthService();
+
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  Future<void> _signUp() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      await _authService.signUp(
+        _emailController.text.trim(),
+        _passwordController.text.trim(),
+      );
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Sign up successfull!Please log in"),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Sign-up failed:${e.toString()}';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +79,8 @@ class _SignupPageState extends State<SignupPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       TextFormField(
-                        decoration: InputDecoration(labelText: 'Email',helperText: 'example@gmail.com'),
-                        controller: _nameController,
+                        decoration: InputDecoration(labelText: 'Email'),
+                        controller: _emailController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Email cannot be empty';
@@ -53,7 +89,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
-                        controller: _passwordController1,
+                        controller: _passwordController,
                         obscureText: _obsecureText,
                         decoration: InputDecoration(
                           labelText: 'password',
@@ -78,7 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                         },
                       ),
                       TextFormField(
-                        controller: _passwordController2,
+                        controller: _confirmPassword,
                         obscureText: _obsecureText,
                         decoration: InputDecoration(
                           labelText: 'password',
@@ -99,24 +135,35 @@ class _SignupPageState extends State<SignupPage> {
                           if (value == null || value.isEmpty) {
                             return 'Confirm password';
                           }
+                          if (value != _passwordController.text) {
+                            return 'Passwords do not match';
+                          }
                           return null;
                         },
                       ),
-                      SizedBox(height: 20,),
-                      ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print('form is valid');
-                          }
-                        },
-                        child: Text(
-                          'Signup',
-                          style: GoogleFonts.montserrat(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      SizedBox(height: 20),
+                      if (_errorMessage != null)
+                        Text(
+                          _errorMessage!,
+                          style: TextStyle(color: Colors.red),
                         ),
-                      ),
+                      const SizedBox(height: 12),
+                      _isLoading
+                          ? CircularProgressIndicator()
+                          : ElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  _signUp();
+                                }
+                              },
+                              child: Text(
+                                'Signup',
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ),
