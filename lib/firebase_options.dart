@@ -82,4 +82,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'flexi-hire.firebasestorage.app',
     measurementId: 'G-Q9E0BXDVGB',
   );
+
 }
