@@ -15,10 +15,10 @@ class Job {
 
   Map<String, dynamic> toMap() {
     return {
-      'category':category,
-      'title':title,
-      'specs':specs,
-      'applyLink':'applyLink',
+      'category': category,
+      'title': title,
+      'specs': specs,
+      'applyLink': 'applyLink',
     };
   }
 }
@@ -47,3 +47,14 @@ final dummyJobs = [
     applyLink: 'https://example.com/apply/content-writer',
   ),
 ];
+
+Future<void> uploadJobsToFirestore() async {
+  final CollectionReference jobs = FirebaseFirestore.instance.collection(
+    'jobs',
+  );
+
+  for (var job in dummyJobs) {
+    await jobs.add(job.toMap());
+  }
+  print('Jobs uploaded to firestore successfully');
+}
