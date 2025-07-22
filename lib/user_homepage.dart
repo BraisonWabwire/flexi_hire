@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flexi_hire/homepage.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,34 @@ class UserHomepage extends StatefulWidget {
 
 class _UserHomepageState extends State<UserHomepage> {
   final TextEditingController _search = TextEditingController();
-  List<Job> _jobs = dummyJobs;
+  List<Job> _jobs = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchJobs();
+  }
+
+  Future<void> fetchJobs() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection('jobs').get();
+      final jobList = snapshot.docs.map((doc) {
+        return Job.fromFirestore(doc.data());
+      }).toList();
+
+      setState(() {
+        _jobs = jobList;
+        _isLoading = false;
+      });
+    } catch (e) {
+      print('Error fetching jobs: $e');
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   List<Job> get _filtered => _jobs
       .where((j) => j.title.toLowerCase().contains(_search.text.toLowerCase()))
       .toList();
@@ -42,33 +70,35 @@ class _UserHomepageState extends State<UserHomepage> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: TextField(
-              controller: _search,
-              decoration: InputDecoration(
-                hintText: 'Search jobs...',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onChanged: (_) => setState(() {}),
-            ),
-          ),
-          Expanded(
-            child: _filtered.isEmpty
-                ? const Center(child: Text('No jobs found'))
-                : ListView.builder(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    itemCount: _filtered.length,
-                    itemBuilder: (_, i) => JobCard(job: _filtered[i]),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: TextField(
+                    controller: _search,
+                    decoration: InputDecoration(
+                      hintText: 'Search jobs...',
+                      prefixIcon: const Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onChanged: (_) => setState(() {}),
                   ),
-          ),
-        ],
-      ),
+                ),
+                Expanded(
+                  child: _filtered.isEmpty
+                      ? const Center(child: Text('No jobs found'))
+                      : ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          itemCount: _filtered.length,
+                          itemBuilder: (_, i) => JobCard(job: _filtered[i]),
+                        ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -102,26 +132,24 @@ class JobCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               job.title,
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
             const SizedBox(height: 8),
-            ...job.specs
-                .map(
-                  (s) => Padding(
-                    padding: const EdgeInsets.only(bottom: 4),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.circle, size: 6, color: Colors.grey),
-                        const SizedBox(width: 8),
-                        Expanded(child: Text(s)),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
+            ...job.specs.map(
+              (s) => Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.circle, size: 6, color: Colors.grey),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text(s)),
+                  ],
+                ),
+              ),
+            ),
             const SizedBox(height: 12),
             Align(
               alignment: Alignment.centerRight,
@@ -160,28 +188,3 @@ class Job {
     );
   }
 }
-
-const dummyJobs = [
-  Job(
-    category: 'Remote',
-    title: 'Flutter Developer',
-    specs: [
-      '3+ years Flutter experience',
-      'Firebase & REST APIs',
-      'Competitive salary',
-    ],
-    applyLink: 'https://example.com/apply/flutter-dev',
-  ),
-  Job(
-    category: 'On-site',
-    title: 'UX Designer',
-    specs: ['Figma mastery', 'Portfolio required', '5 days in NYC office'],
-    applyLink: 'https://example.com/apply/ux-designer',
-  ),
-  Job(
-    category: 'Part-time',
-    title: 'Content Writer',
-    specs: ['SEO knowledge', '10 hrs/week flexible', '₹30k/month'],
-    applyLink: 'https://example.com/apply/content-writer',
-  ),
-];
