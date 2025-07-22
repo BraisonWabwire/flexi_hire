@@ -11,5 +11,14 @@ class Job {
     required this.title,
     required this.specs,
     required this.applyLink,
-  })
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'category':category,
+      'title':title,
+      'specs':specs,
+      'applyLink':'applyLink',
+    };
+  }
 }
