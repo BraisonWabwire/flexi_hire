@@ -14,36 +14,47 @@ class UserHomepage extends StatefulWidget {
 class _UserHomepageState extends State<UserHomepage> {
   final TextEditingController _search = TextEditingController();
   List<Job> _jobs = [];
-  bool _isLoading = true;
+  bool _isLoading = false; // Only loading during manual fetch
 
-  @override
-  void initState() {
-    super.initState();
-    fetchJobs();
-  }
-
-  Future<void> fetchJobs() async {
+  Future<void> _fetchJobs() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       final snapshot = await FirebaseFirestore.instance.collection('jobs').get();
       final jobList = snapshot.docs.map((doc) {
-        return Job.fromFirestore(doc.data());
+        print('Document data: ${doc.data()}'); // Debug log
+        return Job.fromFirestore(doc.data() as Map<String, dynamic>);
       }).toList();
 
-      setState(() {
-        _jobs = jobList;
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _jobs = jobList;
+          _isLoading = false;
+        });
+      }
     } catch (e) {
       print('Error fetching jobs: $e');
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error loading jobs: $e')),
+        );
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
   List<Job> get _filtered => _jobs
       .where((j) => j.title.toLowerCase().contains(_search.text.toLowerCase()))
       .toList();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchJobs(); // Initial fetch on app start
+  }
 
   @override
   void dispose() {
@@ -61,44 +72,49 @@ class _UserHomepageState extends State<UserHomepage> {
             icon: const Icon(Icons.logout),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-                (route) => false,
-              );
+              if (mounted) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomePage()),
+                  (route) => false,
+                );
+              }
             },
           ),
         ],
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: TextField(
-                    controller: _search,
-                    decoration: InputDecoration(
-                      hintText: 'Search jobs...',
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onChanged: (_) => setState(() {}),
-                  ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: TextField(
+              controller: _search,
+              decoration: InputDecoration(
+                hintText: 'Search jobs...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                Expanded(
-                  child: _filtered.isEmpty
-                      ? const Center(child: Text('No jobs found'))
-                      : ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          itemCount: _filtered.length,
-                          itemBuilder: (_, i) => JobCard(job: _filtered[i]),
-                        ),
-                ),
-              ],
+              ),
+              onChanged: (_) => setState(() {}),
             ),
+          ),
+          Expanded(
+            child: _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : RefreshIndicator(
+                    onRefresh: _fetchJobs, // Trigger fetch on pull-down
+                    child: _jobs.isEmpty
+                        ? const Center(child: Text('No jobs found. Pull down to refresh.'))
+                        : ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            itemCount: _filtered.length,
+                            itemBuilder: (_, i) => JobCard(job: _filtered[i]),
+                          ),
+                  ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -180,11 +196,18 @@ class Job {
   });
 
   factory Job.fromFirestore(Map<String, dynamic> data) {
+    final specsValue = data['specs'];
+    List<String> specsList = [];
+    if (specsValue is String) {
+      specsList = specsValue.split(',').map((s) => s.trim()).toList();
+    } else if (specsValue is List<dynamic>) {
+      specsList = specsValue.map((e) => e.toString()).toList();
+    }
     return Job(
       category: data['category'] ?? '',
       title: data['title'] ?? '',
-      specs: List<String>.from(data['specs'] ?? []),
-      applyLink: data['applyLink'] ?? '',
+      specs: specsList.isNotEmpty ? specsList : [],
+      applyLink: data['apply_link'] ?? '',
     );
   }
 }
