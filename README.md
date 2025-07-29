@@ -42,3 +42,5 @@
    ```bash
    git clone https://github.com/BraisonWabwire/flexi_hire.git
    cd flexi_hire
+
+## Download the apk in the link below
